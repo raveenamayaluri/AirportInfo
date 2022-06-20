@@ -13,7 +13,7 @@ class AirportInformationViewController: UIViewController {
     
     var iata:String?
     var phoneString:String?
-  //  var flightInfo: Result<AirportInformation, AirError>?
+ 
    
     @IBOutlet weak var stateStackview: UIStackView!
     @IBOutlet weak var state: UILabel!
