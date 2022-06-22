@@ -49,5 +49,3 @@ extension AirPortListViewControler : UITableViewDelegate{
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
 }
-
-

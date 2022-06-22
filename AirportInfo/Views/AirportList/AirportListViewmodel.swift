@@ -7,8 +7,7 @@
 
 import Foundation
 class AirportListviewModel{
-    
-    private let datasource : [AirPort] =
+    private let dataSource : [AirPort] =
     [AirPort(name:"Abu Dhabi International",iata:"AUH"),
      AirPort(name:"Ahmedabad", iata: "AMD"),
      AirPort(name: "Albury", iata: "ABX"),
@@ -24,11 +23,11 @@ class AirportListviewModel{
     var filteredArray: [AirPort]!
     
     init() {
-      filteredArray = datasource
+      filteredArray = dataSource
     }
     
     func filterAirports (_ searchText: String)  {
-         filteredArray = searchText.isEmpty ? datasource : datasource.filter({$0.airportName.localizedCaseInsensitiveContains(searchText) })
+         filteredArray = searchText.isEmpty ? dataSource : dataSource.filter({$0.airportName.localizedCaseInsensitiveContains(searchText) })
     }
     
     func getAirportList () -> [AirPort] {
