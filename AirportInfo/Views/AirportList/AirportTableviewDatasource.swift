@@ -19,6 +19,7 @@ class AirportTableviewDatasource<CELL : UITableViewCell,T> : NSObject, UITableVi
         self.items = items
         self.configureCell = configureCell
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         items.count
     }
@@ -29,7 +30,6 @@ class AirportTableviewDatasource<CELL : UITableViewCell,T> : NSObject, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CELL
-        
         let item = self.items[indexPath.row]
         self.configureCell(cell, item)
         return cell
