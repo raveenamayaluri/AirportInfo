@@ -13,7 +13,7 @@ class AirportInformationViewController: UIViewController {
     
     var iata:String?
     var phoneString:String?
- 
+    private let viewModel = AirportInfolViewMoldell()
    
     @IBOutlet weak var stateStackview: UIStackView!
     @IBOutlet weak var state: UILabel!
@@ -122,9 +122,9 @@ class AirportInformationViewController: UIViewController {
         
     }
      func makeAPhonecall() {
-         print(phoneString!)
+         print( phoneString!)
          
-         let formatedNumber = phoneString!.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
+         let formatedNumber =  phoneString!.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
          print("calling \(formatedNumber)")
          let phoneUrl = "tel://\(formatedNumber)"
          let url:URL = URL(string: phoneUrl)!
