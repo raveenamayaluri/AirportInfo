@@ -131,7 +131,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="0BR-3d-CPe"/>
                     <connections>
-                        <outlet property="searchbar" destination="xKb-8M-KFL" id="sUp-2M-P6v"/>
+                        <outlet property="searchBar" destination="xKb-8M-KFL" id="3Mp-gt-jwN"/>
                         <outlet property="tableView" destination="irh-Ud-Hz9" id="XnY-KH-ZMz"/>
                     </connections>
                 </viewController>
@@ -211,7 +211,7 @@
                                                     <action selector="phoneButtonAction:" destination="7z4-Iz-9Hn" eventType="touchUpInside" id="fF1-fk-3Pi"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZPy-eI-EF8">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZPy-eI-EF8">
                                                 <rect key="frame" x="124" y="0.0" width="201" height="51"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="201" id="YsH-7A-MMO"/>
@@ -235,7 +235,7 @@
                                                     <action selector="websiteAction:" destination="7z4-Iz-9Hn" eventType="touchUpInside" id="Zyd-Am-N9w"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmD-VF-FZu">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmD-VF-FZu">
                                                 <rect key="frame" x="124" y="0.0" width="201" height="51"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="201" id="v6A-61-QKB"/>
@@ -347,6 +347,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rcO-4Z-r1X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1676.8115942028987" y="96.428571428571431"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="teH-3J-7lM">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BNZ-t6-Sqx" customClass="MapViewController" customModule="AirportInfo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N1b-Zy-yGS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qWD-bt-Vb7">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8L4-i0-j0G"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qWD-bt-Vb7" firstAttribute="top" secondItem="N1b-Zy-yGS" secondAttribute="top" id="8di-Fw-GAt"/>
+                            <constraint firstItem="qWD-bt-Vb7" firstAttribute="leading" secondItem="N1b-Zy-yGS" secondAttribute="leading" id="JBz-XU-lM1"/>
+                            <constraint firstAttribute="bottom" secondItem="qWD-bt-Vb7" secondAttribute="bottom" id="S9E-nO-Roi"/>
+                            <constraint firstAttribute="trailing" secondItem="qWD-bt-Vb7" secondAttribute="trailing" id="Ymm-tl-mja"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="qWD-bt-Vb7" id="HNV-em-ayP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SCh-sA-XvL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2539" y="96"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uAT-dI-hLe">

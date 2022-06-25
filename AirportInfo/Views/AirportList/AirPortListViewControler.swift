@@ -13,6 +13,7 @@ class AirPortListViewControler: UIViewController ,UISearchBarDelegate{
     private let viewModel = AirportListviewModel()
     private var airportDataSource : AirportTableviewDatasource<AirportTableViewCell,AirPort>!
 
+   
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
