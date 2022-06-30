@@ -10,25 +10,25 @@ import Foundation
 
 class AirPortListViewControler: UIViewController ,UISearchBarDelegate{
 
-    private let viewModel = AirportListviewModel()
-    private var airportDataSource : AirportTableviewDatasource<AirportTableViewCell,AirPort>!
+    private let viewModel = AirportListViewModel()
+    private var airportDataSource : AirportTableViewDataSource<AirportTableViewCell,AirPort>!
 
-   
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        updateTableviewDatasource()
+        updateTableViewDatasource()
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.filterAirports(searchText)
-        updateTableviewDatasource()
+        updateTableViewDatasource()
     }
   
-    func updateTableviewDatasource(){
-        airportDataSource = AirportTableviewDatasource(cellIdentifier: "AirportTableViewCell", items:viewModel.getAirportList(), configureCell: { (cell ,airport) in
+    func updateTableViewDatasource(){
+        airportDataSource = AirportTableViewDataSource(cellIdentifier: "AirportTableViewCell", items:viewModel.getAirportList(), configureCell: { (cell ,airport) in
               cell.airportName.text = airport.airportName
               cell.iata.text  = airport.iatacode
         })
@@ -40,12 +40,16 @@ class AirPortListViewControler: UIViewController ,UISearchBarDelegate{
 extension AirPortListViewControler : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let airPort = viewModel.getAirportList()[indexPath.row]
-            MovetoAirportInfo(iata: airPort.iatacode)
+            MovetoAirportInformationController(iata: airPort.iatacode)
     }
     
-    func MovetoAirportInfo(iata:String){
+    func MovetoAirportInformationController(iata:String){
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "AirportInformationViewController") as! AirportInformationViewController
+        
+        guard let newViewController = storyBoard.instantiateViewController(withIdentifier: "AirportInformationViewController") as? AirportInformationViewController else
+        {
+            fatalError("Restoration ID not found")
+        }
         newViewController.iata = iata
         self.navigationController?.pushViewController(newViewController, animated: true)
     }

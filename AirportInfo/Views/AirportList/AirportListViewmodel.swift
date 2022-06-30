@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class AirportListviewModel{
+class AirportListViewModel{
     private let dataSource : [AirPort] =
     [AirPort(name:"Abu Dhabi International",iata:"AUH"),
      AirPort(name:"Ahmedabad", iata: "AMD"),

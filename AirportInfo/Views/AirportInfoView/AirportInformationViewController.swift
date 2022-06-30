@@ -13,22 +13,23 @@ class AirportInformationViewController: UIViewController {
     
     var iata:String?
     var phoneString:String?
-    var viewModel = AirportInfolViewMoldell()
+    var viewModel = AirportInfolViewModel()
      @IBOutlet weak var stateStackview: UIStackView!
+    @IBOutlet weak var phoneStackView: UIStackView!
+    @IBOutlet weak var webStackView: UIStackView!
     @IBOutlet weak var state: UILabel!
     @IBOutlet weak var stateIcon: UIImageView!
     @IBOutlet weak var iataLabel: UILabel!
-    @IBOutlet weak var longitude: UILabel!
-    @IBOutlet weak var latitude: UILabel!
     @IBOutlet weak var country: UILabel!
     @IBOutlet weak var AirportName: UILabel!
     @IBOutlet weak var phoneTextButton: UIButton!
     @IBOutlet weak var websiteTextButton: UIButton!
     
-    var attributedString = NSMutableAttributedString(string:"")
-    let yourAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 14),
+    private var attributedString = NSMutableAttributedString(string:"")
+   private let yourAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 14),
                                                          .foregroundColor: UIColor.blue,
                                                          .underlineStyle: NSUnderlineStyle.single.rawValue]
+    
       override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
@@ -36,28 +37,32 @@ class AirportInformationViewController: UIViewController {
         fatalError("no iata avalable")
           }
           viewModel.getFlightInfo(iata: iata)
-    }
+           }
     
     @IBAction func openMap(_ sender: Any) {
-        movetoMapview()
+        openInMapView()
     }
     
     @IBAction func websiteAction(_ sender: Any) {
-        websiteLoadAction()
+                openInExternalBrowser()
         }
     
-    func websiteLoadAction(){
-        if let url = URL(string: attributedString.string) {
-        UIApplication.shared.open(url, options: [:])
+    func openInExternalBrowser(){
+        if currentReachabilityStatus == .notReachable {
+            print("Nwework Unavailbale")
+        } else {
+            if let url = URL(string: attributedString.string) {
+            UIApplication.shared.open(url, options: [:])
+            }
         }
-    }
+        }
     
     @IBAction func phoneButtonAction(_ sender: Any) {
         self.makeAPhonecall()
     }
     
     @IBAction func websiteTextButtonAction(_ sender: Any) {
-        websiteLoadAction()
+       openInExternalBrowser()
     }
     
     @IBAction func phoneTextButtonAction(_ sender: Any) {
@@ -70,17 +75,16 @@ class AirportInformationViewController: UIViewController {
         self.country.text = airportInfo.country
        phoneString = airportInfo.phone
         if airportInfo.state == "" {
-            state.isHidden = true
-            stateIcon.isHidden = true
             stateStackview.isHidden = true
         }else{
-            state.isHidden = false
-            stateIcon.isHidden = false
-            stateStackview.isHidden = false
+        stateStackview.isHidden = false
         self.state.text = airportInfo.state
         }
-        self.latitude.text = String(airportInfo.latitude)
-        self.longitude.text = String(airportInfo.longitude)
+        if airportInfo.phone == ""{
+            phoneStackView.isHidden = true
+        }else{
+            phoneStackView.isHidden = false
+        }
         let buttonTitleStr = NSMutableAttributedString(string:airportInfo.website, attributes:yourAttributes)
         attributedString.append(buttonTitleStr)
         websiteTextButton.setAttributedTitle(attributedString, for: .normal)
@@ -89,7 +93,7 @@ class AirportInformationViewController: UIViewController {
     
     func makeAPhonecall() {
          guard let phoneUrl = viewModel.getPhoneNumberUrl() else{
-            return
+             fatalError("Phonenumber Not avalable")
         }
          UIApplication.shared.open(phoneUrl, options: [:], completionHandler: nil)
      }
@@ -98,10 +102,10 @@ class AirportInformationViewController: UIViewController {
         _ = self.navigationController?.popToRootViewController(animated: true)
     }
     
-    func movetoMapview(){
+    func openInMapView(){
         let cooridantes = viewModel.getCoordinates()
         let latitude = cooridantes.latitude
-        let longitude = cooridantes.latitude
+        let longitude = cooridantes.longitude
         let coordinate = CLLocationCoordinate2DMake(latitude,longitude)
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
         mapItem.name = "Target location"
@@ -109,7 +113,7 @@ class AirportInformationViewController: UIViewController {
     }
   }
 
-extension AirportInformationViewController: AirportViewmodelProtocal {
+extension AirportInformationViewController: AirportViewModelProtocal {
     
     func didRecieveFlighInfo(airInfo: AirportInformation) {
         DispatchQueue.main.async {
@@ -118,6 +122,5 @@ extension AirportInformationViewController: AirportViewmodelProtocal {
     }
     
     func didRecieveError(error: Error) {
-        
-    }
+       }
 }
